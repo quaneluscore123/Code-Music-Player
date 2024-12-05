@@ -1,42 +1,42 @@
 :root {
     --primary-color: #ec1f55;
     --text-color: #333;
-  }
-  
-  * {
+}
+
+* {
     padding: 0;
     margin: 0;
     box-sizing: inherit;
-  }
-  
-  body {
+}
+
+body {
     background-color: #f5f5f5;
-  }
-  
-  html {
+}
+
+html {
     box-sizing: border-box;
     font-family: "Poppins", sans-serif;
-  }
-  
-  .player {
+}
+
+.player {
     position: relative;
     max-width: 480px;
     margin: 0 auto;
-  }
-  
-  .player .icon-pause {
+}
+
+.player .icon-pause {
     display: none;
-  }
-  
-  .player.playing .icon-pause {
+}
+
+.player.playing .icon-pause {
     display: inline-block;
-  }
-  
-  .player.playing .icon-play {
+}
+
+.player.playing .icon-play {
     display: none;
-  }
-  
-  .dashboard {
+}
+
+.dashboard {
     padding: 16px 16px 14px;
     background-color: #fff;
     position: fixed;
@@ -44,59 +44,59 @@
     width: 100%;
     max-width: 480px;
     border-bottom: 1px solid #ebebeb;
-  }
-  
-  /* HEADER */
-  header {
+}
+
+/* HEADER */
+header {
     text-align: center;
     margin-bottom: 10px;
-  }
-  
-  header h4 {
+}
+
+header h4 {
     color: var(--primary-color);
     font-size: 12px;
-  }
-  
-  header h2 {
+}
+
+header h2 {
     color: var(--text-color);
     font-size: 20px;
-  }
-  
-  /* CD */
-  .cd {
+}
+
+/* CD */
+.cd {
     display: flex;
     margin: auto;
     width: 200px;
-  }
-  
-  .cd-thumb {
+}
+
+.cd-thumb {
     width: 100%;
     padding-top: 100%;
     border-radius: 50%;
     background-color: #333;
     background-size: cover;
     margin: auto;
-  }
-  
-  /* CONTROL */
-  .control {
+}
+
+/* CONTROL */
+.control {
     display: flex;
     align-items: center;
     justify-content: space-around;
     padding: 18px 0 8px 0;
-  }
-  
-  .control .btn {
+}
+
+.control .btn {
     color: #666;
     padding: 18px;
     font-size: 18px;
-  }
-  
-  .control .btn.active {
+}
+
+.control .btn.active {
     color: var(--primary-color);
-  }
-  
-  .control .btn-toggle-play {
+}
+
+.control .btn-toggle-play {
     width: 56px;
     height: 56px;
     border-radius: 50%;
@@ -106,9 +106,9 @@
     align-items: center;
     justify-content: center;
     background-color: var(--primary-color);
-  }
-  
-  .progress {
+}
+
+.progress {
     width: 100%;
     -webkit-appearance: none;
     height: 6px;
@@ -117,24 +117,24 @@
     opacity: 0.7;
     -webkit-transition: 0.2s;
     transition: opacity 0.2s;
-  }
-  
-  .progress::-webkit-slider-thumb {
+}
+
+.progress::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
     width: 12px;
     height: 6px;
     background-color: var(--primary-color);
     cursor: pointer;
-  }
-  
-  /* PLAYLIST */
-  .playlist {
+}
+
+/* PLAYLIST */
+.playlist {
     margin-top: 408px;
     padding: 12px;
-  }
-  
-  .song {
+}
+
+.song {
     display: flex;
     align-items: center;
     margin-bottom: 12px;
@@ -142,48 +142,47 @@
     padding: 8px 16px;
     border-radius: 5px;
     box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
-  }
-  
-  .song.active {
+}
+
+.song.active {
     background-color: var(--primary-color);
-  }
-  
-  .song:active {
+}
+
+.song:active {
     opacity: 0.8;
-  }
-  
-  .song.active .option,
-  .song.active .author,
-  .song.active .title {
+}
+
+.song.active .option,
+.song.active .author,
+.song.active .title {
     color: #fff;
-  }
-  
-  .song .thumb {
+}
+
+.song .thumb {
     width: 44px;
     height: 44px;
     border-radius: 50%;
     background-size: cover;
     margin: 0 8px;
-  }
-  
-  .song .body {
+}
+
+.song .body {
     flex: 1;
     padding: 0 16px;
-  }
-  
-  .song .title {
+}
+
+.song .title {
     font-size: 18px;
     color: var(--text-color);
-  }
-  
-  .song .author {
+}
+
+.song .author {
     font-size: 12px;
     color: #999;
-  }
-  
-  .song .option {
+}
+
+.song .option {
     padding: 16px 8px;
     color: #999;
     font-size: 18px;
-  }
-  
+}
