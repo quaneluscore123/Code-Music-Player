@@ -63,7 +63,7 @@
         const $ = document.querySelector.bind(document);
         const $$ = document.querySelectorAll.bind(document);
 
-        const PLAYER_STORAGE_KEY = 'Quan'
+        // const PLAYER_STORAGE_KEY = 'Quan'
 
         const player = $('.player')
         const heading = $('header h2')
@@ -83,7 +83,7 @@
             isPlaying: false,
             isRandom: false,
             isRepeat: false,
-            config: JSON.parse(localStorage.getItem(PLAYER_STORAGE_KEY) || {}),
+            // config: JSON.parse(localStorage.getItem(PLAYER_STORAGE_KEY) || {}),
             songs: [
                 {
                     name: 'Marry On A Cross',
@@ -98,10 +98,10 @@
                     image: './assest/img/imaginelpx_540x.webp'
                 }
             ],
-            setConfig: function(key, value) {
-                this.config[key] = value;
-                localStorage.setItem(PLAYER_STORAGE_KEY, JSON.stringify(this.config))
-            },
+            // setConfig: function(key, value) {
+            //     this.config[key] = value;
+            //     localStorage.setItem(PLAYER_STORAGE_KEY, JSON.stringify(this.config))
+            // },
             render: function () {
                 const htmls = this.songs.map((song, index) => {
                     return `
@@ -266,10 +266,10 @@
 
             },
 
-            loadConfig: function() {
-                this.isRandom = this.config.isRandom
-                this.isRepeat = this.config.isRepeat
-            },
+            // loadConfig: function() {
+            //     this.isRandom = this.config.isRandom
+            //     this.isRepeat = this.config.isRepeat
+            // },
 
             nextSong: function () {
                 this.currentIndex++
@@ -292,12 +292,11 @@
                 do {
                     newIndex = this.currentIndex = Math.floor(Math.random() * app.songs.length)
                 } while (nextIndex === this.currentIndex)
-
                 this.currentIndex = newIndex
             },
             start: function () {
                 // gan cau hinh config vao ung dung
-                this.loadConfig()
+                // this.loadConfig()
 
                 // Dinh nghia cac thuoc tinh cho object
                 this.defineProperties()
@@ -312,8 +311,8 @@
                 this.render()
 
                 // Hien thi trang thai ban dau cua button repeat & random
-                randomBtn.classList.toggle('active', _this.isRandom)
-                repeatBtn.classList.toggle('active', _this.isRepeat)
+                // randomBtn.classList.toggle('active', _this.isRandom)
+                // repeatBtn.classList.toggle('active', _this.isRepeat)
             }
         }
 
