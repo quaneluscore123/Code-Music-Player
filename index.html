@@ -99,7 +99,7 @@
                     return `
                         <div class="song ${index === this.currentIndex ? 'active' : ''}">
                             <div class="thumb"
-                                style="background-image: url('${song.image}');">       
+                                style="background-image: url('${song.image}')">       
                             </div>
                             <div class="body">
                                 <h3 class="title">${song.name}</h3>
@@ -188,6 +188,7 @@
                     }
                     audio.play()
                     _this.render()
+                    _this.scrollToActiveSong()
                 }
 
                 // Khi prev bai
@@ -222,6 +223,15 @@
                     _this.isRepeat = !_this.isRepeat
                     repeatBtn.classList.toggle('active', _this.isRepeat)
                 }
+            },
+
+            scrollToActiveSong: function() {
+                setTimeout(() => {
+                    $('.song.active').scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'nearest'
+                    })
+                }, 300)
             },
 
             loadCurrentSong: function () {
