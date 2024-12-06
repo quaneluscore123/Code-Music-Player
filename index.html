@@ -73,11 +73,13 @@
         const nextBtn = $('.btn-next')
         const prevBtn = $('.btn-prev')
         const randomBtn = $('.btn-random')
+        const repeatBtn = $('.btn-repeat')
 
         const app = {
             currentIndex: 0,
             isPlaying: false,
             isRandom: false,
+            isRepeat: false,
             songs: [
                 {
                     name: 'Marry On A Cross',
@@ -93,9 +95,9 @@
                 }
             ],
             render: function () {
-                const htmls = this.songs.map(song => {
+                const htmls = this.songs.map((song, index) => {
                     return `
-                        <div class="song">
+                        <div class="song ${index === this.currentIndex ? 'active' : ''}">
                             <div class="thumb"
                                 style="background-image: url('${song.image}');">       
                             </div>
@@ -122,14 +124,13 @@
                 const _this = this
                 const cdWidth = cd.offsetWidth
 
-                // Xu ly CD quay/ dung
+                // Xu ly CD quay / dung
                 const cdThumbAnimate = cdThumb.animate([
                     { transform: 'rotate(360deg)' }
                 ], {
                     duration: 10000,
                     iterations: Infinity
                 })
-
                 cdThumbAnimate.pause()
 
                 // Xu ly phong to thu nho CD
@@ -185,8 +186,8 @@
                     } else {
                         _this.nextSong()
                     }
-                    _this.nextSong()
                     audio.play()
+                    _this.render()
                 }
 
                 // Khi prev bai
@@ -196,8 +197,8 @@
                     } else {
                         _this.prevSong()
                     }
-                    _this.prevSong()
                     audio.play()
+                    _this.render()
                 }
 
                 // Khi random bai
@@ -205,6 +206,21 @@
                     _this.isRandom = !_this.isRandom
                     randomBtn.classList.toggle('active', _this.isRandom)
                     _this.playRandomSong()
+                }
+
+                // Xu ly next song khi audio ended
+                audio.onended = function() {
+                    if(_this.isRepeat) {
+                        audio.play()
+                    } else {
+                        nextBtn.click()
+                    }
+                }
+
+                // Xu ly phat lai 1 bai hat
+                repeatBtn.onclick = function(e) {
+                    _this.isRepeat = !_this.isRepeat
+                    repeatBtn.classList.toggle('active', _this.isRepeat)
                 }
             },
 
