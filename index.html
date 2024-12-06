@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Music player</title>
@@ -68,6 +67,7 @@
         const audio = $('#audio')
         const cd = $('.cd')
         const playBtn = $('.btn-toggle-play')
+        const progress = $('#progress')
 
         const songs = [
             {
@@ -129,15 +129,32 @@
                 // Xu ly khi click play
                 playBtn.onclick = function () {
                     if (_this.isPlaying) {
-                        _this.isPlaying = false
                         audio.pause()
-                        player.classList.remove('playing')
                     } else {
-                        _this.isPlaying = true
                         audio.play()
-                        player.classList.add('playing')
                     }
                 }
+
+                // Khi song duoc play 
+                audio.onplay = function() {
+                    _this.isPlaying = true
+                    player.classList.add('playing')
+                }
+
+                // Khi song bi pause
+                audio.onpause = function() {
+                    _this.isPlaying = false
+                    player.classList.remove('playing')
+                }
+
+                // Khi tien do thay doi
+                audio.ontimeupdate = function() {
+                    if(audio.duration) {
+                        const progressPercent = Math.floor(audio.currentTime / audio.duration * 100)
+                        progress.value = progressPercent
+                    }
+                }
+
             },
 
             loadCurrentSong: function () {
