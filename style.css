@@ -96,6 +96,11 @@ header h2 {
     color: var(--primary-color);
 }
 
+.btn-prev--active .btn-next--active{
+    opacity: 0.7;
+    display: none;
+}
+
 .control .btn-toggle-play {
     width: 56px;
     height: 56px;
