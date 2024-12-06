@@ -63,7 +63,7 @@
         const $ = document.querySelector.bind(document);
         const $$ = document.querySelectorAll.bind(document);
 
-        // const PLAYER_STORAGE_KEY = 'Quan'
+        const PLAYER_STORAGE_KEY = 'Quan'
 
         const player = $('.player')
         const heading = $('header h2')
@@ -76,14 +76,15 @@
         const prevBtn = $('.btn-prev')
         const randomBtn = $('.btn-random')
         const repeatBtn = $('.btn-repeat')
-        const playlist = ('.playlist')
+        const playlist = $('.playlist')
 
         const app = {
             currentIndex: 0,
             isPlaying: false,
             isRandom: false,
             isRepeat: false,
-            // config: JSON.parse(localStorage.getItem(PLAYER_STORAGE_KEY) || {}),
+            // config: {},
+            config: localStorage.getItem(PLAYER_STORAGE_KEY) ? JSON.parse(localStorage.getItem(PLAYER_STORAGE_KEY)) : {},
             songs: [
                 {
                     name: 'Marry On A Cross',
@@ -98,10 +99,10 @@
                     image: './assest/img/imaginelpx_540x.webp'
                 }
             ],
-            // setConfig: function(key, value) {
-            //     this.config[key] = value;
-            //     localStorage.setItem(PLAYER_STORAGE_KEY, JSON.stringify(this.config))
-            // },
+            setConfig: function (key, value) {
+                this.config[key] = value;
+                localStorage.setItem(PLAYER_STORAGE_KEY, JSON.stringify(this.config))
+            },
             render: function () {
                 const htmls = this.songs.map((song, index) => {
                     return `
@@ -133,13 +134,11 @@
                 const cdWidth = cd.offsetWidth
 
                 // Xu ly CD quay / dung
-                const cdThumbAnimate = cdThumb.animate([
-                    { transform: 'rotate(360deg)' }
-                ], {
-                    duration: 10000,
+                const cdThumbAnimate = cdThumb.animate([{ transform: "rotate(360deg)" }], {
+                    duration: 10000, // 10 seconds
                     iterations: Infinity
-                })
-                cdThumbAnimate.pause()
+                });
+                cdThumbAnimate.pause();
 
                 // Xu ly phong to thu nho CD
                 document.onscroll = function () {
@@ -161,16 +160,16 @@
 
                 // Khi song duoc play 
                 audio.onplay = function () {
-                    _this.isPlaying = true
-                    player.classList.add('playing')
-                    cdThumbAnimate.start()
-                }
+                    _this.isPlaying = true;
+                    player.classList.add("playing");
+                    cdThumbAnimate.play();
+                };
 
                 // Khi song bi pause
                 audio.onpause = function () {
-                    _this.isPlaying = false
-                    player.classList.remove('playing')
-                    cdThumbAnimate.pause()
+                    _this.isPlaying = false;
+                    player.classList.remove('playing');
+                    cdThumbAnimate.pause();
                 }
 
                 // Khi tien do thay doi
@@ -194,9 +193,9 @@
                     } else {
                         _this.nextSong()
                     }
-                    audio.play()
-                    _this.render()
-                    _this.scrollToActiveSong()
+                    audio.play();
+                    _this.render();
+                    _this.scrollToActiveSong();
                 }
 
                 // Khi prev bai
@@ -206,8 +205,9 @@
                     } else {
                         _this.prevSong()
                     }
-                    audio.play()
-                    _this.render()
+                    audio.play();
+                    _this.render();
+                    _this.scrollToActiveSong();
                 }
 
                 // Khi random bai
@@ -218,8 +218,8 @@
                 }
 
                 // Xu ly next song khi audio ended
-                audio.onended = function() {
-                    if(_this.isRepeat) {
+                audio.onended = function () {
+                    if (_this.isRepeat) {
                         audio.play()
                     } else {
                         nextBtn.click()
@@ -227,49 +227,51 @@
                 }
 
                 // Xu ly phat lai 1 bai hat
-                repeatBtn.onclick = function(e) {
+                repeatBtn.onclick = function (e) {
                     _this.isRepeat = !_this.isRepeat
                     _this.setConfig('isRepeat', _this.isRepeat)
                     repeatBtn.classList.toggle('active', _this.isRepeat)
                 }
 
                 // Lang nghe hanh vi click vao playlist
-                playlist.onclick = function(e) {
-                    const songNode = e.target.closet('.song:not(.active)')
-                    if(e.target.closet('.song:not(.active)') || e.target.closet('.option')){
-                        // Xu ly click vao song
-                        if(songNode){
-                            _this.currentIndex= Number(songNode.dataset.index)
-                            _this.loadCurrentSong()
-                            audio.play()
-                            _this.render()
+                playlist.onclick = function (e) {
+                    const songNode = e.target.closest(".song:not(.active)");
+
+                    if (songNode || e.target.closest(".option")) {
+                        // Xử lý khi click vào song
+                        // Handle when clicking on the song
+                        if (songNode) {
+                            _this.currentIndex = Number(songNode.dataset.index);
+                            _this.loadCurrentSong();
+                            _this.render();
+                            audio.play();
                         }
                         // Xu ly khi click vao song option
-                        if(e.target.closet('.option')){}
+                        if (e.target.closest(".option")) {
+                        }
                     }
                 }
             },
 
-            scrollToActiveSong: function() {
+            scrollToActiveSong: function () {
                 setTimeout(() => {
-                    $('.song.active').scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'nearest'
-                    })
-                }, 300)
+                    $(".song.active").scrollIntoView({
+                        behavior: "smooth",
+                        block: "center"
+                    });
+                }, 300);
             },
 
             loadCurrentSong: function () {
-                heading.textContent = this.currentSong.name
-                cdThumb.style.backgroundImage = `url('${this.currentSong.image}')`
-                audio.src = this.currentSong.path
-
+                heading.textContent = this.currentSong.name;
+                cdThumb.style.backgroundImage = `url('${this.currentSong.image}')`;
+                audio.src = this.currentSong.path;
             },
 
-            // loadConfig: function() {
-            //     this.isRandom = this.config.isRandom
-            //     this.isRepeat = this.config.isRepeat
-            // },
+            loadConfig: function () {
+                this.isRandom = this.config.isRandom
+                this.isRepeat = this.config.isRepeat
+            },
 
             nextSong: function () {
                 this.currentIndex++
@@ -296,7 +298,7 @@
             },
             start: function () {
                 // gan cau hinh config vao ung dung
-                // this.loadConfig()
+                this.loadConfig()
 
                 // Dinh nghia cac thuoc tinh cho object
                 this.defineProperties()
@@ -311,8 +313,8 @@
                 this.render()
 
                 // Hien thi trang thai ban dau cua button repeat & random
-                // randomBtn.classList.toggle('active', _this.isRandom)
-                // repeatBtn.classList.toggle('active', _this.isRepeat)
+                randomBtn.classList.toggle('active', this.isRandom)
+                repeatBtn.classList.toggle('active', this.isRepeat)
             }
         }
 
